@@ -8,10 +8,13 @@
   "install": true,
   "addOnOptions": {},
   "version": 1,
+  "addOns": true,
   "framework": "react-cra",
   "chosenAddOns": [
     "start",
     "biome",
-    "cloudflare"
+    "cloudflare",
+    "t3env",
+    "shadcn"
   ]
 }
