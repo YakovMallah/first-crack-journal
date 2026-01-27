@@ -1,0 +1,20 @@
+{
+  "projectName": "first-crack-journal",
+  "mode": "file-router",
+  "typescript": true,
+  "tailwind": true,
+  "packageManager": "npm",
+  "git": true,
+  "install": true,
+  "addOnOptions": {},
+  "version": 1,
+  "addOns": true,
+  "framework": "react-cra",
+  "chosenAddOns": [
+    "start",
+    "biome",
+    "cloudflare",
+    "t3env",
+    "shadcn"
+  ]
+}
