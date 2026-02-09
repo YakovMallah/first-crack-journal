@@ -1,15 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
-import { db } from "@/db/index.ts";
-import { posts } from "@/db/schema.ts";
-
-const getEntries = createServerFn({ method: "GET" }).handler(async () => {
-	return await db.select().from(posts).all();
-});
+import { getPosts } from "@/utils/posts.functions";
 
 export const Route = createFileRoute("/")({
 	component: App,
-	loader: async () => await getEntries(),
+	loader: async () => await getPosts(),
 });
 
 function App() {
