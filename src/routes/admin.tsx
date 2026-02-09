@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useId, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,7 +20,7 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
-import { getPosts } from "@/utils/posts.functions";
+import { createPost, getPosts } from "@/utils/posts.functions";
 
 export const Route = createFileRoute("/admin")({
 	component: AdminPage,
@@ -34,6 +35,8 @@ function AdminPage() {
 	const titleId = useId();
 	const contentId = useId();
 
+	const createPostFn = useServerFn(createPost);
+
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setIsSubmitting(true);
@@ -44,13 +47,7 @@ function AdminPage() {
 		};
 
 		try {
-			const res = await fetch("/api/posts", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(data),
-			});
-
-			if (!res.ok) throw new Error("Failed to create post");
+			await createPostFn({ data });
 
 			await router.invalidate();
 			(e.currentTarget as HTMLFormElement).reset();
