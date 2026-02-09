@@ -3,5 +3,13 @@
   "name": "first-crack-journal",
   "compatibility_date": "2025-09-02",
   "compatibility_flags": ["nodejs_compat"],
-  "main": "@tanstack/react-start/server-entry"
+  "main": "@tanstack/react-start/server-entry",
+  "d1_databases": [
+    {
+      "binding": "productionDB",
+      "database_name": "first-crack-journal-db",
+      "database_id": "146e4bda-c545-4de1-bf9a-fee1e580f5c8",
+      "migrations_dir": "drizzle"
+    }
+  ]
 }
