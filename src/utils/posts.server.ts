@@ -1,3 +1,4 @@
+import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { posts } from "@/db/schema";
 
@@ -11,4 +12,8 @@ export async function createPostInDB(title: string, content: string) {
 		.values({ title, content })
 		.returning();
 	return newPost;
+}
+
+export async function deletePostFromDB(id: number) {
+	await db.delete(posts).where(eq(posts.id, id));
 }

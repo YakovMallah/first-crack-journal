@@ -1,5 +1,6 @@
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
+import { Trash2 } from "lucide-react";
 import { useId, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,7 +21,7 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
-import { createPost, getPosts } from "@/utils/posts.functions";
+import { createPost, deletePost, getPosts } from "@/utils/posts.functions";
 
 export const Route = createFileRoute("/admin")({
 	component: AdminPage,
@@ -36,6 +37,7 @@ function AdminPage() {
 	const contentId = useId();
 
 	const createPostFn = useServerFn(createPost);
+	const deletePostFn = useServerFn(deletePost);
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -55,6 +57,17 @@ function AdminPage() {
 			console.error(err);
 		} finally {
 			setIsSubmitting(false);
+		}
+	};
+
+	const handleDelete = async (id: number) => {
+		if (window.confirm("Are you sure you want to delete this post?")) {
+			try {
+				await deletePostFn({ data: { id } });
+				await router.invalidate();
+			} catch (err) {
+				console.error(err);
+			}
 		}
 	};
 
@@ -123,13 +136,14 @@ function AdminPage() {
 									<TableRow>
 										<TableHead>Title</TableHead>
 										<TableHead>Created At</TableHead>
+										<TableHead className="text-right">Actions</TableHead>
 									</TableRow>
 								</TableHeader>
 								<TableBody>
 									{postsList.length === 0 ? (
 										<TableRow>
 											<TableCell
-												colSpan={2}
+												colSpan={3}
 												className="text-center text-muted-foreground"
 											>
 												No posts found.
@@ -145,6 +159,17 @@ function AdminPage() {
 													{post.createdAt
 														? new Date(post.createdAt).toLocaleDateString()
 														: "N/A"}
+												</TableCell>
+												<TableCell className="text-right">
+													<Button
+														variant="ghost"
+														size="icon"
+														onClick={() => handleDelete(post.id)}
+														className="text-destructive hover:text-destructive hover:bg-destructive/10"
+													>
+														<Trash2 className="h-4 w-4" />
+														<span className="sr-only">Delete</span>
+													</Button>
 												</TableCell>
 											</TableRow>
 										))
