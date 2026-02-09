@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { db } from "@/db/index.ts";
-import { entries } from "@/db/schema.ts";
+import { posts } from "@/db/schema.ts";
 
 const getEntries = createServerFn({ method: "GET" }).handler(async () => {
-	return await db.select().from(entries).all();
+	return await db.select().from(posts).all();
 });
 
 export const Route = createFileRoute("/")({
@@ -13,7 +13,7 @@ export const Route = createFileRoute("/")({
 });
 
 function App() {
-	const entriesList = Route.useLoaderData();
+	const postsList = Route.useLoaderData();
 
 	return (
 		<div className="min-h-screen bg-background text-foreground flex flex-col items-center justify-center p-6 text-center">
@@ -30,21 +30,21 @@ function App() {
 
 				<div className="mt-8 text-left">
 					<h2 className="text-2xl font-semibold mb-4 text-center">
-						Recent Entries
+						Recent Posts
 					</h2>
-					{entriesList.length === 0 ? (
+					{postsList.length === 0 ? (
 						<p className="text-muted-foreground text-center">
-							No entries yet. Start brewing!
+							No posts yet. Start brewing!
 						</p>
 					) : (
 						<ul className="space-y-4">
-							{entriesList.map((entry) => (
+							{postsList.map((post) => (
 								<li
-									key={entry.id}
+									key={post.id}
 									className="p-4 border border-border rounded-lg shadow-sm"
 								>
-									<h3 className="text-xl font-bold">{entry.title}</h3>
-									<p className="mt-2 text-muted-foreground">{entry.content}</p>
+									<h3 className="text-xl font-bold">{post.title}</h3>
+									<p className="mt-2 text-muted-foreground">{post.content}</p>
 								</li>
 							))}
 						</ul>
