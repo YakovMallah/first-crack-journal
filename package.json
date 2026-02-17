@@ -13,7 +13,8 @@
     "deploy": "npm run build && wrangler deploy",
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
-    "db:migrate": "wrangler d1 migrations apply first-crack-journal-db --remote"
+    "db:migrate": "wrangler d1 migrations apply first-crack-journal-db --remote",
+    "db:migrate:preview": "wrangler d1 migrations apply DB --env preview --remote"
   },
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.13.8",

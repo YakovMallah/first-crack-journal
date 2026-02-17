@@ -42,7 +42,8 @@ function AdminPage() {
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setIsSubmitting(true);
-		const formData = new FormData(e.currentTarget);
+		const form = e.currentTarget;
+		const formData = new FormData(form);
 		const data = {
 			title: formData.get("title") as string,
 			content: formData.get("content") as string,
@@ -52,7 +53,7 @@ function AdminPage() {
 			await createPostFn({ data });
 
 			await router.invalidate();
-			(e.currentTarget as HTMLFormElement).reset();
+			form.reset();
 		} catch (err) {
 			console.error(err);
 		} finally {

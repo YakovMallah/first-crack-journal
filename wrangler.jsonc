@@ -6,10 +6,25 @@
   "main": "@tanstack/react-start/server-entry",
   "d1_databases": [
     {
-      "binding": "productionDB",
+      "binding": "DB",
       "database_name": "first-crack-journal-db",
       "database_id": "146e4bda-c545-4de1-bf9a-fee1e580f5c8",
+      "preview_database_id": "cb7aaf1f-563d-404e-989a-9eaf5457a25f",
+      "remote": true,
       "migrations_dir": "drizzle"
     }
-  ]
+  ],
+  "env": {
+    "preview": {
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "first-crack-journal-preview-db",
+          "database_id": "cb7aaf1f-563d-404e-989a-9eaf5457a25f",
+          "remote": true,
+          "migrations_dir": "drizzle"
+        }
+      ]
+    }
+  }
 }
