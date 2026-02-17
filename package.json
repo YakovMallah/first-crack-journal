@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite dev --port 3000",
     "build": "vite build",
-    "preview": "vite preview",
+    "preview": "vite build && wrangler dev --port 3000",
     "test": "vitest run",
     "format": "biome format",
     "lint": "biome lint",
@@ -13,8 +13,7 @@
     "deploy": "npm run build && wrangler deploy",
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
-    "db:migrate": "wrangler d1 migrations apply first-crack-journal-db --remote",
-    "db:migrate:preview": "wrangler d1 migrations apply DB --env preview --remote"
+    "db:migrate": "wrangler d1 migrations apply DB"
   },
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.13.8",
