@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev --port 3000",
+    "dev": "VITE_USE_LOCAL_DB=true vite dev --port 3000",
     "build": "vite build",
     "preview": "vite build && wrangler dev --port 3000",
     "test": "vitest run",
@@ -12,6 +12,7 @@
     "check": "biome check",
     "deploy": "npm run build && wrangler deploy",
     "db:generate": "drizzle-kit generate",
+    "db:push:local": "drizzle-kit push --config drizzle-local.config.ts",
     "db:push": "drizzle-kit push",
     "db:migrate": "wrangler d1 migrations apply DB"
   },
@@ -25,6 +26,7 @@
     "@tanstack/react-router-ssr-query": "^1.131.7",
     "@tanstack/react-start": "^1.132.0",
     "@tanstack/router-plugin": "^1.132.0",
+    "better-sqlite3": "^12.6.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^17.2.4",
@@ -44,6 +46,7 @@
     "@tanstack/devtools-vite": "^0.3.11",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.2.0",
+    "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^22.10.2",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",

@@ -7,6 +7,8 @@ import viteReact from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import viteTsConfigPaths from "vite-tsconfig-paths";
 
+const useLocalDb = process.env.VITE_USE_LOCAL_DB === "true";
+
 const config = defineConfig({
 	resolve: {
 		alias: {
@@ -15,7 +17,9 @@ const config = defineConfig({
 	},
 	plugins: [
 		devtools(),
-		cloudflare({ viteEnvironment: { name: "ssr" } }),
+		...(!useLocalDb
+			? [cloudflare({ viteEnvironment: { name: "ssr" } })]
+			: []),
 		// this is the plugin that enables path aliases
 		viteTsConfigPaths({
 			projects: ["./tsconfig.json"],
